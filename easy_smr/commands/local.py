@@ -63,7 +63,7 @@ def train(obj, app_name):
     u"-f",
     u"--file",
     required=True,
-    help="The name (not path) of python file to run as processing job"
+    help="The name (not path) of R file to run as processing job"
 )
 @click.option(
     u"-a",
@@ -74,7 +74,7 @@ def train(obj, app_name):
 @click.pass_obj
 def process(obj, file, app_name):
     """
-    Command to run python files locally as processing job
+    Command to run R files locally as processing job
     """
     print("Started local processing job...\n")
     config = _config(app_name)
@@ -100,7 +100,7 @@ def process(obj, file, app_name):
             "{}".format(os.path.abspath(test_path)),
             docker_tag,
             image_name,
-            file,
+            job_file_path,
             aws_profile,
             aws_region
         ]
