@@ -4,13 +4,13 @@
 .idea/
 .python-version
 *.csv
-app/
+easy_smr_app/
 build/
 easy_sm.egg-info/
 misc/
 *.whl
 *.tar.gz
-app.json
+easy_smr_app.json
 base-requirements.txt
 *__pycache__/
 easy_smr.egg-info/
