@@ -6,26 +6,26 @@ import click
 from click import BadParameter
 import os
 from pathlib import Path
-from easy_sm.config.config import ConfigManager
+from easy_smr.config.config import ConfigManager
 from distutils.dir_util import copy_tree
 
 _FILE_DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
 def _template_creation(app_name, aws_profile, aws_region, output_dir, renv_dir):
-    easy_sm_module_name = 'easy_sm_base'
+    easy_smr_module_name = 'easy_smr_base'
 
-    easy_sm_exists = os.path.exists(os.path.join(output_dir, easy_sm_module_name))
-    if easy_sm_exists:
+    easy_smr_exists = os.path.exists(os.path.join(output_dir, easy_smr_module_name))
+    if easy_smr_exists:
         raise ValueError(
-            "There is a easy_sm directory/module already. "
-            "Please, rename it in order to use easy_sm."
+            "There is a easy_smr directory/module already. "
+            "Please, rename it in order to use easy_smr."
         )
 
     Path(output_dir).mkdir(exist_ok=True)
     Path(os.path.join(output_dir, '__init__.py')).touch()
 
-    # Set 'easy_sm module' directory up
+    # Set 'easy_smr module' directory up
     copy_tree(os.path.join(_FILE_DIR_PATH, '../template'), output_dir)
 
     # Set configuration file up
@@ -35,7 +35,7 @@ def _template_creation(app_name, aws_profile, aws_region, output_dir, renv_dir):
     config.image_name = app_name
     config.aws_region = aws_region
     config.aws_profile = aws_profile
-    config.easy_sm_module_dir = output_dir
+    config.easy_smr_module_dir = output_dir
     config.renv_dir = renv_dir
     config_manager.set_config(config)
 
@@ -116,7 +116,7 @@ def init():
     Command to initialize SageMaker template
     """
 
-    easy_sm_app_name = ask_for_app_name()
+    easy_smr_app_name = ask_for_app_name()
 
     is_new_project = ask_if_existing_project_exists()
 
@@ -128,11 +128,11 @@ def init():
 
     renv_dir = ask_for_renv_dir()
     _template_creation(
-        app_name=easy_sm_app_name,
+        app_name=easy_smr_app_name,
         aws_profile=aws_profile,
         aws_region=aws_region,
-        output_dir=root_dir if root_dir else easy_sm_app_name,
+        output_dir=root_dir if root_dir else easy_smr_app_name,
         requirements_dir=renv_dir
     )
 
-    print("\neasy_sm module is created! ヽ(´▽`)/")
+    print("\neasy_smr module is created! ヽ(´▽`)/")
