@@ -1,0 +1,36 @@
+#!/usr/bin/env Rscript
+
+library(here)
+library(renv)
+PROJECT_DIR <- Sys.getenv("TARGET_DIR")
+activate(here(PROJECT_DIR, "easy_smr_base"))
+
+# Import training logic
+source(here(PROJECT_DIR, "easy_smr_base", "training", "training.r"))
+
+# Setup parameters
+# Container directories
+prefix <- "/opt/ml"
+input_data_path <- paste(prefix, "input/data/training", sep = "/")
+model_save_path <- paste(prefix, "model", sep = "/")
+failure_output <- paste(prefix, "failure", sep = "/")
+
+tryCatch(
+    {
+        train(
+            input_data_path = input_data_path,
+            model_save_path = model_save_path,
+        )
+
+        # A zero exit code causes the job to be marked a Succeeded.
+        q(status = 0)
+    },
+    error = function(e) {
+        # Handle error here
+        write(e$message, file = paste(failure_output, "failure", sep = "/"))
+        cat(e$message, file = stderr())
+
+        # A non-zero exit code causes the training job to be marked as Failed.
+        q(status = 255)
+    }
+)
