@@ -16,7 +16,7 @@ RUN R -e "renv::load('/opt/program/${target_dir_name}/easy_smr_base') ; \
 # Set to top level directory for consistency with local development environment path references within scripts
 WORKDIR /opt/program/
 
-# target_dir_name is saved as an ENV var to allow expansion subsequently. This variable is then also used in executer.sh
+# target_dir_name is saved as an ENV var to allow expansion subsequently. This variable is then also used in executer.sh and trainr
 ENV TARGET_DIR=${target_dir_name}
 
 # The weird bit at the end allows passing arguments to executer.sh at runtime
