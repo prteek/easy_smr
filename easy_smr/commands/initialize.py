@@ -12,7 +12,7 @@ from distutils.dir_util import copy_tree
 _FILE_DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 
-def _template_creation(app_name, aws_profile, aws_region, output_dir, renv_dir):
+def _template_creation(app_name, aws_profile, aws_region, output_dir):
     easy_smr_module_name = 'easy_smr_base'
 
     easy_smr_exists = os.path.exists(os.path.join(output_dir, easy_smr_module_name))
@@ -36,7 +36,6 @@ def _template_creation(app_name, aws_profile, aws_region, output_dir, renv_dir):
     config.aws_region = aws_region
     config.aws_profile = aws_profile
     config.easy_smr_module_dir = output_dir
-    config.renv_dir = renv_dir
     config_manager.set_config(config)
 
 
@@ -106,10 +105,6 @@ def ask_for_aws_details():
     return chosen_profile, chosen_region
 
 
-def ask_for_renv_dir():
-    return click.prompt(text="Type in the path to renv directory", type=str).strip('/')
-
-
 @click.command()
 def init():
     """
@@ -126,13 +121,11 @@ def init():
 
     aws_profile, aws_region = ask_for_aws_details()
 
-    renv_dir = ask_for_renv_dir()
     _template_creation(
         app_name=easy_smr_app_name,
         aws_profile=aws_profile,
         aws_region=aws_region,
         output_dir=root_dir if root_dir else easy_smr_app_name,
-        renv_dir=renv_dir
     )
 
     print("\neasy_smr module is created! ヽ(´▽`)/")
