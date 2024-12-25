@@ -17,10 +17,7 @@ failure_output <- paste(prefix, "failure", sep = "/")
 
 tryCatch(
     {
-        train_function(
-            input_data_path = input_data_path,
-            model_save_path = model_save_path,
-        )
+        train_function(input_data_path = input_data_path, model_save_path = model_save_path)
 
         # A zero exit code causes the job to be marked a Succeeded.
         q(status = 0)
