@@ -12,7 +12,7 @@ WORKDIR /opt/program/${target_dir_name}/easy_smr_base
 RUN R -e "install.packages('renv')"
 RUN R -e "renv::restore()"
 
-# For consistency with local development path
+# Set to top level directory for consistency with local development environment
 WORKDIR /opt/program/
 
 ENTRYPOINT ["easy_sm_base/executor.sh"]
