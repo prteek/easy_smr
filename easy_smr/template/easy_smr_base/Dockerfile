@@ -16,4 +16,4 @@ RUN R -e "renv::load('/opt/program/${target_dir_name}/easy_smr_base') ; \
 # Set to top level directory for consistency with local development environment path references within scripts
 WORKDIR /opt/program/
 
-ENTRYPOINT ["easy_sm_base/executor.sh"]
+ENTRYPOINT ["easy_smr_base/executor.sh"]
