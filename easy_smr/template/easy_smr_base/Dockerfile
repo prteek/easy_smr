@@ -5,12 +5,14 @@ LABEL maintainer="None"
 ARG module_path
 ARG target_dir_name
 
-WORKDIR /opt/program/${target_dir_name}/${module_path}
+COPY ${module_path} /opt/program/${target_dir_name}
 
-# Install renv and restore environment
+# Install renv and restore environment from renv path
+WORKDIR /opt/program/${target_dir_name}/easy_smr_base
 RUN R -e "install.packages('renv')"
 RUN R -e "renv::restore()"
 
-COPY ${module_path} /opt/program/${target_dir_name}
+# Set working directory to 
+WORKDIR /opt/program/
 
 ENTRYPOINT ["easy_sm_base/executor.sh"]
