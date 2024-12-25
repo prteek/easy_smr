@@ -13,3 +13,4 @@ misc/
 app.json
 base-requirements.txt
 *__pycache__/
+easy_smr.egg-info/
