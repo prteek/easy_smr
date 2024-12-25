@@ -132,7 +132,7 @@ def init():
         aws_profile=aws_profile,
         aws_region=aws_region,
         output_dir=root_dir if root_dir else easy_smr_app_name,
-        requirements_dir=renv_dir
+        renv_dir=renv_dir
     )
 
     print("\neasy_smr module is created! ヽ(´▽`)/")
