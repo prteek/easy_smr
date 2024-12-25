@@ -100,7 +100,7 @@ def process(obj, file, app_name):
             "{}".format(os.path.abspath(test_path)),
             docker_tag,
             image_name,
-            job_file_path,
+            file,
             aws_profile,
             aws_region
         ]

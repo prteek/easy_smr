@@ -5,7 +5,7 @@
 if [ $1 = "train" ]; then
     python ./easy_sm_base/training/train
 elif [ $1 = "process" ]; then
-    Rscript $2
+    Rscript $TARGET_DIR/easy_smr_base/processing/$2
 elif [ $1 = "make" ]; then
     cd $TARGET_DIR/easy_smr_base/processing
     make $2
