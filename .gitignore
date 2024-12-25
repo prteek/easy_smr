@@ -1,0 +1,15 @@
+*credentials
+*.ipynb_checkpoints/
+*.DS_Store
+.idea/
+.python-version
+*.csv
+app/
+build/
+easy_sm.egg-info/
+misc/
+*.whl
+*.tar.gz
+app.json
+base-requirements.txt
+*__pycache__/
