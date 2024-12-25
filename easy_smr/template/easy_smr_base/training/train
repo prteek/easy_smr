@@ -17,7 +17,7 @@ failure_output <- paste(prefix, "failure", sep = "/")
 
 tryCatch(
     {
-        train(
+        train_function(
             input_data_path = input_data_path,
             model_save_path = model_save_path,
         )

@@ -4,7 +4,7 @@ activate(here("replace_with_project_directory", "easy_smr_base"))
 # Import other libraries after this
 
 
-train <- function(input_data_path, model_save_path) {
+train_function <- function(input_data_path, model_save_path) {
     # The function to execute the training.
 
     # Args:
