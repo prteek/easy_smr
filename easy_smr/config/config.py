@@ -4,11 +4,10 @@ from collections import OrderedDict
 
 
 class Config(object):
-    def __init__(self, image_name, aws_profile, aws_region, easy_smr_module_dir, renv_dir):
+    def __init__(self, image_name, aws_profile, aws_region, easy_smr_module_dir):
         self.image_name = image_name
         self.aws_profile = aws_profile
         self.aws_region = aws_region
-        self.renv_dir = renv_dir
         self.easy_smr_module_dir = easy_smr_module_dir
 
     def to_dict(self):
@@ -21,7 +20,6 @@ class Config(object):
             aws_profile=input_dict['aws_profile'],
             aws_region=input_dict['aws_region'],
             easy_smr_module_dir=input_dict['easy_smr_module_dir'],
-            renv_dir=input_dict['renv_dir']
         )
 
 
@@ -35,7 +33,6 @@ class ConfigManager(object):
                 aws_profile='',
                 aws_region='',
                 easy_smr_module_dir='',
-                renv_dir=''
             ))
 
     def get_config(self):
