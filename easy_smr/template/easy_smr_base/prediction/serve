@@ -3,7 +3,7 @@
 library(here)
 library(renv)
 PROJECT_DIR <- Sys.getenv("TARGET_DIR")
-activate(here(PROJECT_DIR, "easy_smr_base"))
+load(here(PROJECT_DIR, "easy_smr_base"))
 
 # Bring in library for prediction server
 library(plumber)

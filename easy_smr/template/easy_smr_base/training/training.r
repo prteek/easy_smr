@@ -1,6 +1,6 @@
 library(here)
 library(renv)
-activate(here("replace_with_project_directory", "easy_smr_base"))
+load(here("replace_with_project_directory", "easy_smr_base"))
 # Import other libraries after this
 
 
