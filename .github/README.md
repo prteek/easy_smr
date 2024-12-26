@@ -64,34 +64,37 @@ easy_smr cloud process -f file.py -a app_name -r $SAGEMAKER_EXCUTION_ROLE -e ml.
 
 #### Getting started local training
 ##### Dependencies
-First of all a *requirements.txt* that captures all dependencies for training code is required. This needs to be specified when using `easy_smr init` as it is subsequently used for building Docker container.
+First of all an *renv.lock* that captures all dependencies for training code is required. This needs to be maintained (and updated) in `app_name/easy_smr_base` as you develop the code. (See [renv](https://rstudio.github.io/renv/reference/index.html)) <br/>
+The central idea around dependencies is that a single *renv* is used for a give project (placed automatically at `app_name/easy_smr_base`) and that all the R scripts activate and use this *renv*.
+
 Additionally a *Dockerfile* in *app_name/easy_smr_base/Dockerfile* can be modified for flexibility in how the container is built.
 
 ##### Code
-The code for training needs to be copied in **app_name/easy_smr_base/training/training.py** under the function *train* with any import statements at the top of the file
+The code for training needs to be copied in **app_name/easy_smr_base/training/training.r** under the function *train_function* with any import statements at the top of the file. (Making sure path to renv is correctly specified at the top)
 e.g.
-```python
-import statsmodels.api as sm
-from patsy import dmatrices
-import pandas as pd
-import joblib
-import os
+```r
+library(here)
+library(renv)
+activate(here("app_easy_smr", "easy_smr_base")) # Notice the app name here used to activate renv
+# Import other libraries after this
 
-def train(input_data_path, model_save_path, hyperparams_path=None):
-    """
-    The function to execute the training.
+train_function <- function(input_data_path, model_save_path) {
+    # The function to execute the training.
 
-    :param input_data_path: [str], input directory path where all the training file(s) reside in
-    :param model_save_path: [str], directory path to save your model(s)
-    """
-    # TODO: Write your modeling logic
-    mpg = pd.read_csv(os.path.join(input_data_path, 'auto-mpg.csv'))
-    y, X = dmatrices('mpg ~ weight + horsepower', mpg, return_type="dataframe")
-    ols = sm.OLS(y.values.ravel(), X.values).fit()
-    print(ols.summary())
+    # Args:
+    #   input_data_path: [character], input directory path where all the training file(s) reside in
+    #   model_save_path: [character], directory path to save your model(s)
+
+    # TODO: Write your modeling logic (including loading data)
+    mpg <- read.csv(paste(input_data_path, "mpg.csv", sep = "/"))
+
+    lmod <- lm(mpg ~ horsepower + weight, mpg)
+    print(summary(lmod))
 
     # TODO: save the model(s) under 'model_save_path'
-    joblib.dump(ols, os.path.join(model_save_path, 'model.mdl'))
+    saveRDS(lmod, paste(model_save_path, "mpg_model.rds", sep = "/"))
+}
+
 ```
 
 ##### Data
@@ -192,26 +195,33 @@ To run inference using trained model
 2. Any input data must be handled and pre processed
 3. Predictions made and output data processed if necessary
 
-The code to accomplish all this needs to be defined in **app_name/easy_smr_base/prediction/serve**. By default *text/csv* inputs are supported and results returned as *text/csv* but other formats can be introduced in the *serve* file. If the default settings are usable then the only changes to the code need to be in *model_fn* and *input_fn* along with any dependencies at the top. A sample code looks like following
+The code to accomplish all this needs to be defined in **app_name/easy_smr_base/prediction/plumber.r**. By default *text/csv* inputs are supported and results returned as *text/csv* but other formats can be introduced in the *serve* file. If the default settings are usable then the only changes to the code need to be in *model_fn* and *input_fn* along with any dependencies at the top. A sample code looks like following
 
-```python
-# Your imports here
-import joblib
-import statsmodels.api as sm
+```r
+library(here)
+library(renv)
 
-def model_fn(model_dir):
-    """Required model loading for Sagemaker framework"""
-    # TODO Load a specific model
-    model = joblib.load(os.path.join(model_dir, 'model.mdl'))
-    return model
+# TODO add renv path here to activate it (replace first part with app name)
+activate(here("app_easy_smr", "easy_smr_base"))
+
+# TODO load more libraries here if needed
 
 
-def predict_fn(input_data, model):
-    """Predict on the input data"""
-    # TODO Add any preprocessing or prediction related logic here
-    input_data = sm.add_constant(input_data, has_constant='add')
-    predictions = model.predict(input_data)
-    return predictions
+# TODO Define a function to load the model to be used for predictions
+model_fn <- function(model_save_path) {
+    model <- readRDS(paste(model_save_path, "mpg_model.rds", sep = "/"))
+    return(model)
+}
+
+# TODO Define a prediction function
+predict_fn <- function(X, model) {
+    # Here you would use your actual model to make predictions
+    # Additionally any preprocessing required on X before prediction (X is an un-named matrix as it comes in)
+    colnames(X) <- c("weight", "horsepower")
+    predictions <- predict(model, X)
+    return(predictions)
+}
+
 ```
 
 ##### Deploy
