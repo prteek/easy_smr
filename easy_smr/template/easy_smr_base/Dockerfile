@@ -15,6 +15,8 @@ COPY ${module_path} /opt/program/${target_dir_name}
 RUN chmod -R 755 /opt/program/${target_dir_name}
 
 # Install renv and here packages and restore the environment.
+# Diable renv cache, since in deployment settings multiple machines may be used for concurrency
+# This causes symlinks to cache to be broken when serving
 # It is assumed that all the scripts should load this Renv internally: renv::load('path_to_renv')
 RUN R -e "install.packages(c('renv', 'here'))"
 RUN R -e "library(renv); \
