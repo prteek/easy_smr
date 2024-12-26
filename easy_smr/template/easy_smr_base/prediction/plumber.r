@@ -22,15 +22,15 @@ predict_fn <- function(X, model) {
     return(predictions)
 }
 
-#' Ping to show server is alive
-#' @get /ping
+#* Ping to show server is alive
+#* @get /ping
 function() {
     return("")
 }
 
-#' Parse input and return prediction from model
-#' @param req The http request sent
-#' @post /invocations
+#* Parse input and return prediction from model
+#* @param req The http request sent
+#* @post /invocations
 function(req, res) {
     # Get the content type from the request
     content_type <- req$HTTP_CONTENT_TYPE
