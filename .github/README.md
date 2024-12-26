@@ -70,7 +70,7 @@ The central idea around dependencies is that a single *renv* is used for a give 
 Additionally a *Dockerfile* in *app_name/easy_smr_base/Dockerfile* can be modified for flexibility in how the container is built.
 
 ##### Code
-The code for training needs to be copied in **app_name/easy_smr_base/training/training.r** under the function *train_function* with any import statements at the top of the file. (Making sure path to renv is correctly specified at the top)
+The code for training needs to be copied in **app_name/easy_smr_base/training/training.R** under the function *train_function* with any import statements at the top of the file. (Making sure path to renv is correctly specified at the top)
 e.g.
 ```r
 library(here)
@@ -195,7 +195,7 @@ To run inference using trained model
 2. Any input data must be handled and pre processed
 3. Predictions made and output data processed if necessary
 
-The code to accomplish all this needs to be defined in **app_name/easy_smr_base/prediction/plumber.r**. By default *text/csv* inputs are supported and results returned as *text/csv* but other formats can be introduced in the *serve* file. If the default settings are usable then the only changes to the code need to be in *model_fn* and *input_fn* along with any dependencies at the top. A sample code looks like following
+The code to accomplish all this needs to be defined in **app_name/easy_smr_base/prediction/plumber.R**. By default *text/csv* inputs are supported and results returned as *text/csv* but other formats can be introduced in the *serve* file. If the default settings are usable then the only changes to the code need to be in *model_fn* and *input_fn* along with any dependencies at the top. A sample code looks like following
 
 ```r
 library(here)
