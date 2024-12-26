@@ -65,7 +65,7 @@ easy_smr cloud process -f file.py -a app_name -r $SAGEMAKER_EXCUTION_ROLE -e ml.
 #### Getting started local training
 ##### Dependencies
 First of all an *renv.lock* that captures all dependencies for training code is required. This needs to be maintained (and updated) in `app_name/easy_smr_base` as you develop the code. (See [renv](https://rstudio.github.io/renv/reference/index.html)) <br/>
-The central idea around dependencies is that a single *renv* is used for a give project (placed automatically at `app_name/easy_smr_base`) and that all the R scripts activate and use this *renv*.
+The central idea around dependencies is that a single *renv* is used for a give project (placed automatically at `app_name/easy_smr_base`) and that all the R scripts load and use this *renv*.
 
 Additionally a *Dockerfile* in *app_name/easy_smr_base/Dockerfile* can be modified for flexibility in how the container is built.
 
@@ -75,7 +75,7 @@ e.g.
 ```r
 library(here)
 library(renv)
-activate(here("app-easy-smr", "easy_smr_base")) # Notice the app name here used to activate renv
+load(here("app-easy-smr", "easy_smr_base")) # Notice the app name here used to load renv
 # Import other libraries after this
 
 train_function <- function(input_data_path, model_save_path) {
@@ -201,8 +201,8 @@ The code to accomplish all this needs to be defined in **app_name/easy_smr_base/
 library(here)
 library(renv)
 
-# TODO add renv path here to activate it (replace first part with app name)
-activate(here("app-easy-smr", "easy_smr_base"))
+# TODO add renv path here to load it (replace first part with app name)
+load(here("app-easy-smr", "easy_smr_base"))
 
 # TODO load more libraries here if needed
 

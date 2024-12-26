@@ -1,7 +1,7 @@
 library(here)
 library(renv)
 
-# TODO add renv path here to activate it (replace first part with app name)
+# TODO add renv path here to load it (replace first part with app name)
 load(here("replace_with_project_directory", "easy_smr_base"))
 
 # TODO load more libraries here if needed
