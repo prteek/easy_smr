@@ -75,7 +75,7 @@ e.g.
 ```r
 library(here)
 library(renv)
-activate(here("app_easy_smr", "easy_smr_base")) # Notice the app name here used to activate renv
+activate(here("app-easy-smr", "easy_smr_base")) # Notice the app name here used to activate renv
 # Import other libraries after this
 
 train_function <- function(input_data_path, model_save_path) {
@@ -202,7 +202,7 @@ library(here)
 library(renv)
 
 # TODO add renv path here to activate it (replace first part with app name)
-activate(here("app_easy_smr", "easy_smr_base"))
+activate(here("app-easy-smr", "easy_smr_base"))
 
 # TODO load more libraries here if needed
 
