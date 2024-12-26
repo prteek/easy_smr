@@ -10,14 +10,17 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     pkg-config \
     libsodium-dev
-    
+
 COPY ${module_path} /opt/program/${target_dir_name}
+RUN chmod -R 755 /opt/program/${target_dir_name}
 
 # Install renv and here packages and restore the environment.
 # It is assumed that all the scripts should load this Renv internally: renv::load('path_to_renv')
-RUN R -e "install.packages(c('renv', 'here', 'plumber'))"
-RUN R -e "renv::load('/opt/program/${target_dir_name}/easy_smr_base') ; \
-            renv::restore()"
+RUN R -e "install.packages(c('renv', 'here'))"
+RUN R -e "library(renv); \
+            load('/opt/program/${target_dir_name}/easy_smr_base') ; \
+            options(renv.config.cache.enabled = FALSE); \
+            restore(rebuild=TRUE)"
 
 # Set to top level directory for consistency with local development environment path references within scripts
 WORKDIR /opt/program/
