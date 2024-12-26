@@ -10,7 +10,7 @@ library(plumber)
 
 # Setup scoring function
 serve <- function() {
-    app <- plumb(here(PROJECT_DIR, "easy_smr_base", "prediction", "plumber.r"))
+    app <- plumb(here(PROJECT_DIR, "easy_smr_base", "prediction", "plumber.R"))
     app$run(host = "0.0.0.0", port = 8080)
 }
 

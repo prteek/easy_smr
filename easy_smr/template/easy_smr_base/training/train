@@ -6,7 +6,7 @@ PROJECT_DIR <- Sys.getenv("TARGET_DIR")
 load(here(PROJECT_DIR, "easy_smr_base"))
 
 # Import training logic
-source(here(PROJECT_DIR, "easy_smr_base", "training", "training.r"))
+source(here(PROJECT_DIR, "easy_smr_base", "training", "training.R"))
 
 # Setup parameters
 # Container directories
