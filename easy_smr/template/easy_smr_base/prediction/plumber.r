@@ -17,7 +17,7 @@ model_fn <- function(model_save_path) {
 # TODO Define a prediction function
 predict_fn <- function(X, model) {
     # Here you would use your actual model to make predictions
-    # Additionally any preprocessing required on X before prediction
+    # Additionally any preprocessing required on X before prediction (X is an un-named matrix as it comes in)
 
     return(predictions)
 }
