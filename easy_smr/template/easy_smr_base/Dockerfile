@@ -5,6 +5,12 @@ LABEL maintainer="None"
 ARG module_path
 ARG target_dir_name
 
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libcurl4-openssl-dev \
+    pkg-config \
+    libsodium-dev
+    
 COPY ${module_path} /opt/program/${target_dir_name}
 
 # Install renv and here packages and restore the environment.
