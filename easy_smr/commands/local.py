@@ -45,17 +45,27 @@ def train(obj, app_name):
     if not os.path.isdir(test_path):
         raise ValueError("This is not a easy_smr directory: {}".format(dir))
 
-    output = subprocess.check_output(
-        [
-            "{}".format(local_train_script_path),
-            "{}".format(os.path.abspath(test_path)),
-            docker_tag,
-            image_name
-        ]
-    )
-    print(output)
+    try:
+        output = subprocess.check_output(
+                [
+                    "{}".format(local_train_script_path),
+                    "{}".format(os.path.abspath(test_path)),
+                    docker_tag,
+                    image_name
+                ],
+        stderr=subprocess.STDOUT,  # Merge stderr into stdout
+        text=True  # Return output as a string instead of bytes
+        )
 
-    print("Local training completed successfully!")
+        print("Local training completed successfully!")
+
+    except subprocess.CalledProcessError as e:
+        # Surface the error
+        print("Error occurred while running the command:")
+        print(f"Return code: {e.returncode}")
+        print(f"Command: {e.cmd}")
+        print("Error output:")
+        print(e.output)  # This contains both stdout and stderr
 
 
 @click.command()
@@ -94,7 +104,8 @@ def process(obj, file, app_name):
     if not os.path.isfile(job_file_path):
         raise ValueError("Processing file does not exist: {}".format(job_file_path))
 
-    output = subprocess.check_output(
+    try:
+        output = subprocess.check_output(
         [
             "{}".format(local_process_script_path),
             "{}".format(os.path.abspath(test_path)),
@@ -103,11 +114,18 @@ def process(obj, file, app_name):
             file,
             aws_profile,
             aws_region
-        ]
-    )
-    print(output)
-    print("Local processing completed successfully!")
-
+        ],
+        stderr=subprocess.STDOUT,  # Merge stderr into stdout
+        text=True  # Return output as a string instead of bytes
+        )
+        print("Local processing completed successfully!")
+    except subprocess.CalledProcessError as e:
+        # Surface the error
+        print("Error occurred while running the command:")
+        print(f"Return code: {e.returncode}")
+        print(f"Command: {e.cmd}")
+        print("Error output:")
+        print(e.output)  # This contains both stdout and stderr
 
 @click.command()
 @click.option(
@@ -134,17 +152,26 @@ def deploy(obj, app_name):
     if not os.path.isdir(test_path):
         raise ValueError("This is not a easy_smr directory: {}".format(dir))
 
-    print("Started local deployment at localhost:8080 ...\n")
-    output = subprocess.check_output(
-        [
-            "{}".format(local_deploy_script_path),
-            "{}".format(os.path.abspath(test_path)),
-            docker_tag,
-            image_name
-        ]
-    )
-    print(output)
+    try:
+        print("Started local deployment at localhost:8080 ...\n")
+        output = subprocess.check_output(
+            [
+                "{}".format(local_deploy_script_path),
+                "{}".format(os.path.abspath(test_path)),
+                docker_tag,
+                image_name
+            ],
+        stderr=subprocess.STDOUT,  # Merge stderr into stdout
+        text=True  # Return output as a string instead of bytes
+        )
 
+    except subprocess.CalledProcessError as e:
+        # Surface the error
+        print("Error occurred while running the command:")
+        print(f"Return code: {e.returncode}")
+        print(f"Command: {e.cmd}")
+        print("Error output:")
+        print(e.output)  # This contains both stdout and stderr
 
 
 @click.command()
@@ -182,19 +209,29 @@ def make(obj, target, app_name):
     if not os.path.isfile(makefile_path):
         raise ValueError("Makefile does not exist: {}".format(makefile_path))
 
-    output = subprocess.check_output(
-        [
-            "{}".format(local_make_script_path),
-            "{}".format(os.path.abspath(test_path)),
-            docker_tag,
-            image_name,
-            target,
-            aws_profile,
-            aws_region
-        ]
-    )
-    print(output)
-    print(f"{target} built successfully!")
+    try:
+        output = subprocess.check_output(
+            [
+                "{}".format(local_make_script_path),
+                "{}".format(os.path.abspath(test_path)),
+                docker_tag,
+                image_name,
+                target,
+                aws_profile,
+                aws_region
+            ],
+            stderr=subprocess.STDOUT,  # Merge stderr into stdout
+            text=True  # Return output as a string instead of bytes
+        )
+        print(f"{target} built successfully!")
+
+    except subprocess.CalledProcessError as e:
+        # Surface the error
+        print("Error occurred while running the command:")
+        print(f"Return code: {e.returncode}")
+        print(f"Command: {e.cmd}")
+        print("Error output:")
+        print(e.output)  # This contains both stdout and stderr
 
 
 local.add_command(train)
