@@ -71,7 +71,7 @@ A simple way to use it in scripts is
 ```r
 library(here)
 library(renv)
-load(here("app-easy-smr", "easy_smr_base"))
+load(here("app-name", "easy_smr_base"))
 
 ```
 Additionally a *Dockerfile* in *app-name/easy_smr_base/Dockerfile* can be modified for flexibility in how the container is built.
