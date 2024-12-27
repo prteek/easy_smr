@@ -84,7 +84,8 @@ class SageMakerClient(object):
             image_name,
             s3_model_location,
             memory_size_in_mb,
-            endpoint_name=None
+            endpoint_name=None,
+            max_concurrency=5
     ):
         """
         Deploy model to SageMaker
@@ -112,7 +113,7 @@ class SageMakerClient(object):
                 endpoint_config_name,
                 model_name,
                 memory_size_in_mb,
-                5
+                max_concurrency
             )
 
             _ = self.sagemaker_client.create_endpoint(EndpointName=endpoint_name, EndpointConfigName=endpoint_config_name)
@@ -129,7 +130,7 @@ class SageMakerClient(object):
                 endpoint_config_name,
                 model_name,
                 memory_size_in_mb,
-                5
+                max_concurrency
             )
 
             _ = self.sagemaker_client.update_endpoint(EndpointName=endpoint_name, EndpointConfigName=endpoint_config_name)
