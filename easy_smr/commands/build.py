@@ -1,7 +1,7 @@
 import sys
 import click
 import os
-import subprocess
+from easy_smr.commands.helpers import safe_run_subprocess
 from easy_smr.config.config import ConfigManager
 
 def _config(app_name):
@@ -41,30 +41,15 @@ def _build(source_dir, image_name, docker_tag):
 
     target_dir_name = os.path.basename(os.path.normpath(source_dir))
 
-    try:
-        output = subprocess.check_output(
-        [
+    command = [
             "{}".format(build_script_path),
             "{}".format(os.path.relpath(source_dir)),
             "{}".format(os.path.relpath(target_dir_name)),
             "{}".format(dockerfile_path),
             docker_tag,
             image_name,
-        ],
-        stderr=subprocess.STDOUT,  # Merge stderr into stdout
-        text=True  # Return output as a string instead of bytes
-        )
-
-        print("Docker image built successfully!")
-
-    except subprocess.CalledProcessError as e:
-        # Surface the error
-        print("Error occurred while running the command:")
-        print(f"Return code: {e.returncode}")
-        print(f"Command: {e.cmd}")
-        print("Error output:")
-        print(e.output)  # This contains both stdout and stderr
-
+        ]
+    safe_run_subprocess(command, "Docker image built successfully!")
 
 @click.command()
 @click.option(
