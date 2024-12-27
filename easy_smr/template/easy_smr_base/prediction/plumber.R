@@ -51,17 +51,18 @@ function(req, res) {
         # Make predictions
         predictions <- predict_fn(X, model)
 
-        # Convert the predictions to a data frame
-        output <- data.frame(results = predictions)
-        colnames(output) <- NULL
-        # Convert the data frame back to CSV format
-        out <- paste(capture.output(write.csv(output, row.names = FALSE)), collapse = "\n")
+        # Collapse the result into a single string
+        out <- paste(predictions, collapse = "\n")
 
-        # Return the results as a CSV in the response
-        return(list(response = out, status = 200, mimetype = "text/csv"))
+        # Return the results as CSV in the response
+        res$status <- 200
+        res$setHeader("Content-Type", "text/csv")
+        res$body <- out
+        return(res)
     } else {
         # If the content type is unsupported, return an error response
         res$status <- 400
-        return(list(error = "Unsupported content type"))
+        res$body <- "Unsupported content type"
+        return(res)
     }
 }
