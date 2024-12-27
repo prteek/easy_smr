@@ -93,6 +93,7 @@ class SageMakerClient(object):
         :param s3_model_location: [str], model location in S3
         :param memory_size_in_mb: [str],
         :param endpoint_name: [optional[str]], Optional name for the SageMaker endpoint
+        :param max_concurrency: [optional[int]], Optional maximum concurrency for SageMaker endpoint
 
         :return: [str], endpoint name
         """
