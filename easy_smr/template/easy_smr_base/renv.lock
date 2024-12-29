@@ -18,6 +18,16 @@
         "utils"
       ],
       "Hash": "47623f66b4e80b3b0587bc5d7b309888"
+    },
+    "here": {
+      "Package": "here",
+      "Version": "1.0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "rprojroot"
+      ],
+      "Hash": "24b224366f9c2e7534d2344d10d59211"
     }
   }
 }
