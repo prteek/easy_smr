@@ -74,6 +74,8 @@ library(renv)
 load(here("app-name", "easy_smr_base"))
 
 ```
+`A major assumption the package makes is that the working directory is where the project was initialised and from where *easy_smr* commands are run (i.e. directory where app-name.json file lives). It is assumed that inside of scripts *here* points to this directory and all paths are set relative to this location. This not being the case, Docker will fail to run the scripts properly.`
+
 Additionally a *Dockerfile* in *app-name/easy_smr_base/Dockerfile* can be modified for flexibility in how the container is built.
 
 ##### Code
