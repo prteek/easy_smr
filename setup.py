@@ -20,7 +20,7 @@ Recommended to validate before updating.
             'template/easy_smr_base/.dockerignore',
             'template/easy_smr_base/training/train',
             'template/easy_smr_base/training/*.R',
-            'template/easy_smr_base/processing/*.R',
+            'template/easy_smr_base/processing/.gitkeep',
             'template/easy_smr_base/prediction/*.R',
             'template/easy_smr_base/prediction/serve',
             'template/easy_smr_base/local_test/*.sh',
