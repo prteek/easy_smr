@@ -19,15 +19,15 @@
       ],
       "Hash": "47623f66b4e80b3b0587bc5d7b309888"
     },
-    "here": {
-      "Package": "here",
-      "Version": "1.0.1",
+    "this.path": {
+      "Package": "this.path",
+      "Version": "2.6.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
-        "rprojroot"
+        "R"
       ],
-      "Hash": "24b224366f9c2e7534d2344d10d59211"
+      "Hash": "b21ad87c95be5bb2d941f66ed0a2a8d4"
     }
   }
 }

@@ -1,8 +1,6 @@
-library(here)
+library(this.path)
 library(renv)
-
-# TODO add renv path here to load it (replace first part with app name)
-load(here("replace_with_project_directory", "easy_smr_base"))
+load(here(".."))
 
 # TODO load more libraries here if needed
 

@@ -1,12 +1,11 @@
 #!/usr/bin/env Rscript
 
-library(here)
+library(this.path)
 library(renv)
-PROJECT_DIR <- Sys.getenv("TARGET_DIR")
-load(here(PROJECT_DIR, "easy_smr_base"))
+load(here(".."))
 
 # Import training logic
-source(here(PROJECT_DIR, "easy_smr_base", "training", "training.R"))
+source(here("training.R"))
 
 # Setup parameters
 # Container directories

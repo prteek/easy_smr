@@ -69,12 +69,12 @@ The central idea around dependencies is that a single *renv* is used for a given
 A simple way to use it in scripts is
 
 ```r
-library(here)
+library(this.path)
 library(renv)
-load(here("app-name", "easy_smr_base"))
+load(here("..")) # Since renv location is one level up from all processing/training scripts
 
 ```
-`A major assumption the package makes is that the working directory is where the project was initialised and from where *easy_smr* commands are run (i.e. directory where app-name.json file lives). It is assumed that inside of scripts *here* points to this directory and all paths are set relative to this location. This not being the case, Docker will fail to run the scripts properly.`
+`A major assumption the package makes is that the working directory is where the project was initialised and from where *easy_smr* commands are run (i.e. directory where app-name.json file lives). It is also assumed that inside of scripts *here* (from this.path) is used load correct *renv* and source relevant files. This not being the case, Docker will fail to run the scripts properly.`
 
 Additionally a *Dockerfile* in *app-name/easy_smr_base/Dockerfile* can be modified for flexibility in how the container is built.
 
@@ -82,9 +82,9 @@ Additionally a *Dockerfile* in *app-name/easy_smr_base/Dockerfile* can be modifi
 The code for training needs to be copied in **app-name/easy_smr_base/training/training.R** under the function *train_function* with any import statements at the top of the file. (Making sure path to renv is correctly specified at the top)
 e.g.
 ```r
-library(here)
+library(this.path)
 library(renv)
-load(here("app-name", "easy_smr_base")) # Notice the app name used to load renv (use your app's name)
+load(here("..")) # Notice that renv is located just one level up any processing/training scripts
 # Import other libraries after this
 
 train_function <- function(input_data_path, model_save_path) {
@@ -207,11 +207,9 @@ To run inference using trained model
 The code to accomplish all this needs to be defined in **app-name/easy_smr_base/prediction/plumber.R**. By default *text/csv* inputs are supported and results returned as *text/csv* but other formats can be introduced in the *serve* file. If the default settings are usable then the only changes to the code need to be in *model_fn* and *input_fn* along with any dependencies at the top. A sample code looks like following
 
 ```r
-library(here)
+library(this.path)
 library(renv)
-
-# TODO add renv path here to load it (replace first part with your app name)
-load(here("app-name", "easy_smr_base"))
+load(here(".."))
 
 # TODO load more libraries here if needed
 
