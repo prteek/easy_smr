@@ -10,5 +10,5 @@ elif [ $1 = "make" ]; then
     cd $TARGET_DIR/easy_smr_base/processing
     make $2
 else # This case is reserved for serving for compatibility with Sagemaker
-    python ./easy_smr_base/prediction/serve
+    Rscript $TARGET_DIR/easy_smr_base/prediction/serve
 fi
