@@ -10,23 +10,28 @@ Recommended to validate before updating.
     """,
     author='Prateek',
     author_email='prteek@icloud.com',
-    version="0.1.8",
+    version="0.1.9",
     python_requires='>=3.11',
     packages=find_packages(where='.'),
     package_data={
         'easy_sm': [
             'template/easy_smr_base/*.sh',
             'template/easy_smr_base/Dockerfile',
-            'template/easy_smr_base/__init__.py',
+            'template/easy_smr_base/.dockerignore',
             'template/easy_smr_base/training/train',
-            'template/easy_smr_base/training/*.py',
-            'template/easy_smr_base/processing/*.py',
-            'template/easy_smr_base/prediction/*.py',
+            'template/easy_smr_base/training/*.R',
+            'template/easy_smr_base/processing/*.R',
+            'template/easy_smr_base/prediction/*.R',
             'template/easy_smr_base/prediction/serve',
             'template/easy_smr_base/local_test/*.sh',
             'template/easy_smr_base/local_test/test_dir/output/.gitkeep',
             'template/easy_smr_base/local_test/test_dir/model/.gitkeep',
-            'template/easy_smr_base/local_test/test_dir/input/data/training/.gitkeep'
+            'template/easy_smr_base/local_test/test_dir/input/data/training/.gitkeep',
+            'template/easy_smr_base/renv/.gitignore',
+            'template/easy_smr_base/renv/activate.R',
+            'template/easy_smr_base/renv/settings.json',
+            'template/easy_smr_base/renv.lock',
+            'template/easy_smr_base/.Rprofile'
         ]
     },
     install_requires=[
