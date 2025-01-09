@@ -10,11 +10,11 @@ Recommended to validate before updating.
     """,
     author='Prateek',
     author_email='prteek@icloud.com',
-    version="0.1.9",
+    version="0.1.10",
     python_requires='>=3.11',
     packages=find_packages(where='.'),
     package_data={
-        'easy_sm': [
+        'easy_smr': [
             'template/easy_smr_base/*.sh',
             'template/easy_smr_base/Dockerfile',
             'template/easy_smr_base/.dockerignore',
